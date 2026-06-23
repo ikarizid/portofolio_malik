@@ -137,30 +137,12 @@ export const Experience: React.FC = () => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
               return (
-                <motion.button
+                <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`relative px-4 py-2.5 rounded-xl font-mono text-[10px] sm:text-xs tracking-wider flex items-center gap-2 cursor-pointer z-10 transition-all ${
-                    isActive ? 'text-white font-semibold' : 'text-neutral-400'
+                  className={`relative px-4 py-2.5 rounded-xl font-mono text-[10px] sm:text-xs tracking-wider flex items-center gap-2 cursor-pointer z-10 transition-all duration-300 ${
+                    isActive ? 'text-white font-semibold' : 'text-neutral-400 hover:text-neutral-200'
                   }`}
-                  animate={!isActive ? {
-                    textShadow: [
-                      "0 0 0px rgba(167, 139, 250, 0)",
-                      "0 0 12px rgba(167, 139, 250, 0.6)",
-                      "0 0 0px rgba(167, 139, 250, 0)"
-                    ],
-                    color: ["#a3a3a3", "#e9d5ff", "#a3a3a3"],
-                    scale: [1, 1.02, 1]
-                  } : {
-                    textShadow: "0 0 0px rgba(0,0,0,0)",
-                    color: "#ffffff",
-                    scale: 1
-                  }}
-                  transition={!isActive ? {
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  } : { duration: 0.2 }}
                 >
                   {isActive && (
                     <motion.div
@@ -169,21 +151,33 @@ export const Experience: React.FC = () => {
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
-                  <motion.span
-                    className="flex items-center"
-                    animate={!isActive ? {
-                      color: ["#737373", "#22d3ee", "#737373"]
-                    } : { color: "#22d3ee" }}
-                    transition={!isActive ? {
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    } : { duration: 0.2 }}
-                  >
+                  <span className={`flex items-center ${isActive ? 'text-cyan-400' : 'text-neutral-500'}`}>
                     <Icon className="w-3.5 h-3.5" />
-                  </motion.span>
-                  <span>{tab.label}</span>
-                </motion.button>
+                  </span>
+                  {isActive ? (
+                    <span>{tab.label}</span>
+                  ) : (
+                    <motion.span
+                      animate={{
+                        backgroundPosition: ["200% 0", "-200% 0"]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "linear"
+                      }}
+                      style={{
+                        background: "linear-gradient(90deg, #a3a3a3 30%, #ffffff 50%, #a3a3a3 70%)",
+                        backgroundSize: "200% 100%",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        display: "inline-block"
+                      }}
+                    >
+                      {tab.label}
+                    </motion.span>
+                  )}
+                </button>
               );
             })}
           </div>
