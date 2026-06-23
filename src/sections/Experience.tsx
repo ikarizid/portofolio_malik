@@ -1,29 +1,113 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SpotlightCard } from '../components/SpotlightCard';
 import { Counter } from '../components/Counter';
-import { BookOpen, GraduationCap, Laptop, Share2, Award, Users } from 'lucide-react';
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1 },
-  },
-};
+import {
+  BookOpen,
+  Share2,
+  Users,
+  Palette,
+  Code,
+  Briefcase,
+} from 'lucide-react';
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 25 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const } },
+  hidden: { opacity: 0, y: 15 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
 export const Experience: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'founder' | 'work' | 'org'>('founder');
+
+  const tabs = [
+    { id: 'founder', label: 'Ikariz.id Group (Founder)', icon: Share2 },
+    { id: 'work', label: 'Pengalaman Kerja', icon: Briefcase },
+    { id: 'org', label: 'Pengalaman Organisasi', icon: Users },
+  ];
+
+  const workExperiences = [
+    {
+      role: "Guru Informatika",
+      location: "MA Al Islam Bantur",
+      period: "Aktif",
+      active: true,
+      desc: "Mengajar materi informatika kepada siswa MA Al Islam Bantur serta membimbing pemahaman teknologi informasi."
+    },
+    {
+      role: "Guru Desain Grafis",
+      location: "MA Al Islam Bantur",
+      period: "Aktif",
+      active: true,
+      desc: "Mengajar desain grafis kreatif, tools multimedia, dan membimbing pembuatan portofolio visual siswa."
+    },
+    {
+      role: "Guru Informatika",
+      location: "MTs Al Islam Bantur",
+      period: "Aktif",
+      active: true,
+      desc: "Mengajar konsep dasar teknologi informasi dan komputer untuk siswa tingkat menengah pertama."
+    },
+    {
+      role: "Operator Data",
+      location: "MTs Al Islam Bantur",
+      period: "Aktif",
+      active: true,
+      desc: "Mengelola sinkronisasi data sekolah, data administrasi siswa, dan sistem pelaporan berkala."
+    },
+    {
+      role: "Divisi Data PPS",
+      location: "Desa Wonokerto (Masa Pilkada 2024)",
+      period: "2024",
+      active: false,
+      desc: "Mengurus validasi, pemutakhiran, dan pengolahan data pemilih untuk kelancaran Pilkada 2024."
+    }
+  ];
+
+  const orgExperiences = [
+    {
+      role: "Sekretaris Divisi 2",
+      organization: "HMP PAI UNIRA Malang",
+      period: "2025",
+      desc: "Mengelola administrasi divisi, menyusun program kerja, serta berkontribusi aktif dalam kegiatan Himpunan Mahasiswa Program Studi PAI."
+    },
+    {
+      role: "Anggota",
+      organization: "HMP-PAI UNIRA Malang",
+      period: "2024",
+      desc: "Terlibat dalam berbagai kegiatan sosial, keagamaan, dan akademis yang diselenggarakan oleh organisasi mahasiswa."
+    },
+    {
+      role: "Ketua Divisi Jarkominfo",
+      organization: "IPNU IPPNU PAC Bantur",
+      period: "2022",
+      desc: "Memimpin divisi jaringan komunikasi dan informasi, mengelola media sosial organisasi, serta mempublikasikan berita internal."
+    },
+    {
+      role: "Ketua OSIS",
+      organization: "MA Al Islam Bantur",
+      period: "2022",
+      desc: "Memimpin seluruh kepengurusan OSIS, mengoordinasikan kegiatan sekolah, dan menjadi jembatan antara siswa dan guru."
+    },
+    {
+      role: "Anggota OSIS",
+      organization: "MA Al Islam Bantur",
+      period: "2020",
+      desc: "Aktif berpartisipasi dalam perencanaan dan pelaksanaan program kerja OSIS di lingkungan madrasah."
+    },
+    {
+      role: "Anggota",
+      organization: "LPMD (Lembaga Pemberdayaan Masyarakat Desa)",
+      period: "Aktif",
+      desc: "Berkontribusi dalam perencanaan pembangunan desa serta pemberdayaan masyarakat di lingkungan setempat."
+    }
+  ];
+
   return (
     <section
       id="experience"
       className="min-h-screen relative flex flex-col justify-center items-center px-6 py-20 bg-transparent border-t border-violet-900/30"
     >
-
-      <div className="relative z-10 w-full max-w-5xl space-y-16">
+      <div className="relative z-10 w-full max-w-5xl space-y-12">
         {/* Section Header */}
         <div className="text-center md:text-left">
           <motion.p
@@ -46,160 +130,251 @@ export const Experience: React.FC = () => {
           </motion.h2>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
-          {/* Category 1: Academic Teaching */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
-            className="lg:col-span-6 space-y-6 flex flex-col items-stretch"
-          >
-            <div className="flex items-center gap-3 pb-2 text-neutral-400 font-mono text-xs uppercase tracking-wider border-b border-neutral-900">
-              <BookOpen className="w-4 h-4 text-cyan-400" />
-              <span>Academic Teaching</span>
-            </div>
+        {/* Custom Tab Selector */}
+        <div className="flex justify-center md:justify-start">
+          <div className="flex flex-wrap items-center gap-1.5 p-1.5 bg-neutral-900/60 backdrop-blur-md rounded-2xl border border-neutral-800/80">
+            {tabs.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`relative px-4 py-2.5 rounded-xl font-mono text-[10px] sm:text-xs tracking-wider transition-colors duration-300 flex items-center gap-2 cursor-pointer z-10 ${
+                    isActive ? 'text-white font-semibold' : 'text-neutral-400 hover:text-neutral-200'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTabIndicator"
+                      className="absolute inset-0 bg-violet-600/35 border border-violet-500/30 rounded-xl -z-10 shadow-[0_0_20px_rgba(139,92,246,0.15)]"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-cyan-400' : 'text-neutral-500'}`} />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-            <div className="space-y-4">
-              {/* Teaching Card 1 */}
-              <motion.div variants={cardVariants}>
-                <SpotlightCard className="p-5 flex gap-4">
-                  <div className="p-2.5 h-10 w-10 rounded-lg bg-cyan-950/40 border border-cyan-800/30 flex items-center justify-center text-cyan-400">
-                    <Laptop className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1 text-left space-y-1">
-                    <div className="text-[10px] font-mono tracking-widest text-emerald-400 font-semibold uppercase bg-emerald-950/30 border border-emerald-800/20 px-2 py-0.5 rounded inline-block">
-                      Aktif
+        {/* Tab Contents */}
+        <div className="min-h-[400px]">
+          <AnimatePresence mode="wait">
+            {activeTab === 'founder' && (
+              <motion.div
+                key="founder-content"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-8"
+              >
+                <div className="text-center md:text-left space-y-2">
+                  <h3 className="text-2xl font-extrabold text-white font-display">Ikariz.id Group</h3>
+                  <p className="text-sm text-cyan-400 font-mono tracking-wide">Academic, Design & Digital Solutions Partner</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Card 1: Teman Tugas */}
+                  <SpotlightCard className="p-6 border border-neutral-800/80 hover:border-cyan-500/30 transition-all flex flex-col justify-between min-h-[320px]">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 h-10 w-10 rounded-lg bg-cyan-950/40 border border-cyan-800/30 flex items-center justify-center text-cyan-400">
+                          <BookOpen className="w-5 h-5" />
+                        </div>
+                        <div className="text-left">
+                          <h4 className="text-lg font-bold text-white font-display">Teman Tugas</h4>
+                          <p className="text-[10px] text-neutral-500 font-mono">ikariz.id</p>
+                        </div>
+                      </div>
+                      <p className="text-xs text-neutral-400 leading-relaxed font-sans text-left">
+                        Jasa bantuan penulisan akademik dan penyusunan tugas kuliah/sekolah secara profesional.
+                      </p>
                     </div>
-                    <h3 className="text-sm font-semibold text-white font-sans mt-1">
-                      Guru Informatika & Desain Grafis
-                    </h3>
-                    <p className="text-xs text-neutral-400 font-sans">
-                      MA Al Islam Bantur
-                    </p>
-                  </div>
-                </SpotlightCard>
+
+                    <div className="mt-6 pt-4 border-t border-neutral-800/60 space-y-3">
+                      <div className="flex justify-between items-center text-left">
+                        <span className="text-[10px] font-mono tracking-wider uppercase text-neutral-400">Jurnal Sinta 5-3</span>
+                        <span className="text-lg font-bold text-cyan-400 font-display">
+                          <Counter end={50} suffix="++" />
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center text-left">
+                        <span className="text-[10px] font-mono tracking-wider uppercase text-neutral-400">Skripsi Selesai</span>
+                        <span className="text-lg font-bold text-indigo-400 font-display">
+                          <Counter end={7} suffix="" />
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center text-left">
+                        <span className="text-[10px] font-mono tracking-wider uppercase text-neutral-400">Tugas Ringan</span>
+                        <span className="text-lg font-bold text-fuchsia-400 font-display">
+                          <Counter end={200} suffix="" />
+                        </span>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+
+                  {/* Card 2: The Designer */}
+                  <SpotlightCard className="p-6 border border-neutral-800/80 hover:border-fuchsia-500/30 transition-all flex flex-col justify-between min-h-[320px]">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 h-10 w-10 rounded-lg bg-fuchsia-950/40 border border-fuchsia-800/30 flex items-center justify-center text-fuchsia-400">
+                          <Palette className="w-5 h-5" />
+                        </div>
+                        <div className="text-left">
+                          <h4 className="text-lg font-bold text-white font-display">The Designer</h4>
+                          <p className="text-[10px] text-neutral-500 font-mono">ikariz.id</p>
+                        </div>
+                      </div>
+                      <p className="text-xs text-neutral-400 leading-relaxed font-sans text-left">
+                        Jasa desain grafis kreatif, branding, publikasi sosial media, dan layout materi promosi.
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-neutral-800/60 flex justify-between items-center text-left">
+                      <span className="text-[10px] font-mono tracking-wider uppercase text-neutral-400 text-left">Desain Terbuat</span>
+                      <span className="text-2xl font-bold text-fuchsia-400 font-display">
+                        <Counter end={100} suffix="++" />
+                      </span>
+                    </div>
+                  </SpotlightCard>
+
+                  {/* Card 3: likDeveloper */}
+                  <SpotlightCard className="p-6 border border-neutral-800/80 hover:border-emerald-500/30 transition-all flex flex-col justify-between min-h-[320px]">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 h-10 w-10 rounded-lg bg-emerald-950/40 border border-emerald-800/30 flex items-center justify-center text-emerald-400">
+                          <Code className="w-5 h-5" />
+                        </div>
+                        <div className="text-left">
+                          <h4 className="text-lg font-bold text-white font-display">likDeveloper</h4>
+                          <p className="text-[10px] text-neutral-500 font-mono">ikariz.id</p>
+                        </div>
+                      </div>
+                      <p className="text-xs text-neutral-400 leading-relaxed font-sans text-left">
+                        Jasa pembuatan website custom, web portofolio, sistem administrasi, dan solusi pemrograman.
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-neutral-800/60 flex justify-between items-center text-left">
+                      <span className="text-[10px] font-mono tracking-wider uppercase text-neutral-400 text-left">Projek Selesai</span>
+                      <span className="text-2xl font-bold text-emerald-400 font-display">
+                        <Counter end={20} suffix="++" />
+                      </span>
+                    </div>
+                  </SpotlightCard>
+                </div>
               </motion.div>
+            )}
 
-              {/* Teaching Card 2 */}
-              <motion.div variants={cardVariants}>
-                <SpotlightCard className="p-5 flex gap-4">
-                  <div className="p-2.5 h-10 w-10 rounded-lg bg-indigo-950/40 border border-indigo-800/30 flex items-center justify-center text-indigo-400">
-                    <Laptop className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1 text-left space-y-1">
-                    <div className="text-[10px] font-mono tracking-widest text-emerald-400 font-semibold uppercase bg-emerald-950/30 border border-emerald-800/20 px-2 py-0.5 rounded inline-block">
-                      Aktif
-                    </div>
-                    <h3 className="text-sm font-semibold text-white font-sans mt-1">
-                      Guru Informatika
-                    </h3>
-                    <p className="text-xs text-neutral-400 font-sans">
-                      MTs Al Islam Bantur
-                    </p>
-                  </div>
-                </SpotlightCard>
+            {activeTab === 'work' && (
+              <motion.div
+                key="work-content"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-8"
+              >
+                <div className="text-center md:text-left space-y-2">
+                  <h3 className="text-2xl font-extrabold text-white font-display">Pengalaman Kerja</h3>
+                  <p className="text-sm text-cyan-400 font-mono tracking-wide">Perjalanan Profesional & Kontribusi</p>
+                </div>
+
+                <div className="relative border-l border-neutral-800 ml-4 md:ml-6 pl-6 space-y-8 text-left">
+                  {workExperiences.map((job, idx) => (
+                    <motion.div
+                      key={idx}
+                      variants={cardVariants}
+                      initial="hidden"
+                      animate="visible"
+                      transition={{ delay: idx * 0.05 }}
+                      className="relative"
+                    >
+                      {/* Timeline Dot */}
+                      <span className="absolute -left-[31px] top-1.5 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-neutral-950 border border-neutral-800">
+                        <span className={`h-2.5 w-2.5 rounded-full ${job.active ? 'bg-cyan-400 animate-pulse-slow' : 'bg-neutral-600'}`} />
+                      </span>
+
+                      <SpotlightCard className="p-5 border border-neutral-800/80 hover:border-violet-500/20 transition-all">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <div className="space-y-1">
+                            <h4 className="text-base font-bold text-white font-sans">{job.role}</h4>
+                            <p className="text-xs text-neutral-400 font-sans font-medium">{job.location}</p>
+                          </div>
+                          <span className={`text-[9px] font-mono uppercase tracking-widest px-2 py-0.5 rounded border ${
+                            job.active 
+                              ? 'text-emerald-400 bg-emerald-950/20 border-emerald-800/20' 
+                              : 'text-neutral-500 bg-neutral-900 border-neutral-800'
+                          }`}>
+                            {job.period}
+                          </span>
+                        </div>
+                        <p className="text-xs text-neutral-500 mt-3 font-sans leading-relaxed">
+                          {job.desc}
+                        </p>
+                      </SpotlightCard>
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
-            </div>
-          </motion.div>
-    
-          {/* Category 2: Business Founder */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
-            className="lg:col-span-6 space-y-6"
-          >
-            <div className="flex items-center gap-3 pb-2 text-neutral-400 font-mono text-xs uppercase tracking-wider border-b border-neutral-900">
-              <Share2 className="w-4 h-4 text-fuchsia-400" />
-              <span>Business Founder</span>
-            </div>
+            )}
 
-            <motion.div variants={cardVariants} className="space-y-6 text-left">
-              <div>
-                <h3 className="text-2xl font-extrabold text-white font-display">
-                  Ikariz.id Group
-                </h3>
-                <p className="text-xs font-mono text-neutral-500 tracking-wide mt-1">
-                  Academic & Digital Solutions Partner
-                </p>
-              </div>
+            {activeTab === 'org' && (
+              <motion.div
+                key="org-content"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-8"
+              >
+                <div className="text-center md:text-left space-y-2">
+                  <h3 className="text-2xl font-extrabold text-white font-display">Pengalaman Organisasi</h3>
+                  <p className="text-sm text-cyan-400 font-mono tracking-wide">Aktif Berorganisasi & Mengembangkan Kepemimpinan</p>
+                </div>
 
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                
-                {/* Stats 1 */}
-                <motion.div variants={cardVariants}>
-                  <SpotlightCard className="p-5 flex flex-col justify-between h-28">
-                    <div className="text-3xl font-extrabold font-display text-white tracking-tight flex items-baseline">
-                      <Counter end={50} suffix="+" />
-                    </div>
-                    <span className="text-[10px] font-mono tracking-wider uppercase text-neutral-400 flex items-center gap-1.5 mt-2">
-                      <Award className="w-3.5 h-3.5 text-cyan-400" />
-                      Jurnal Terpublish (Sinta 4/5)
-                    </span>
-                  </SpotlightCard>
-                </motion.div>
+                <div className="relative border-l border-neutral-800 ml-4 md:ml-6 pl-6 space-y-8 text-left">
+                  {orgExperiences.map((org, idx) => (
+                    <motion.div
+                      key={idx}
+                      variants={cardVariants}
+                      initial="hidden"
+                      animate="visible"
+                      transition={{ delay: idx * 0.05 }}
+                      className="relative"
+                    >
+                      {/* Timeline Dot */}
+                      <span className="absolute -left-[31px] top-1.5 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-neutral-950 border border-neutral-800">
+                        <span className={`h-2.5 w-2.5 rounded-full ${org.period === 'Aktif' ? 'bg-fuchsia-400 animate-pulse-slow' : 'bg-neutral-600'}`} />
+                      </span>
 
-                {/* Stats 2 */}
-                <motion.div variants={cardVariants}>
-                  <SpotlightCard className="p-5 flex flex-col justify-between h-28">
-                    <div className="text-3xl font-extrabold font-display text-white tracking-tight flex items-baseline">
-                      <Counter end={6} suffix="+" />
-                    </div>
-                    <span className="text-[10px] font-mono tracking-wider uppercase text-neutral-400 flex items-center gap-1.5 mt-2">
-                      <GraduationCap className="w-3.5 h-3.5 text-indigo-400" />
-                      Skripsi Selesai
-                    </span>
-                  </SpotlightCard>
-                </motion.div>
-
-                {/* Stats 3 */}
-                <motion.div variants={cardVariants}>
-                  <SpotlightCard className="p-5 flex flex-col justify-between h-28">
-                    <div className="text-3xl font-extrabold font-display text-white tracking-tight flex items-baseline">
-                      <Counter end={200} suffix="++" />
-                    </div>
-                    <span className="text-[10px] font-mono tracking-wider uppercase text-neutral-400 flex items-center gap-1.5 mt-2">
-                      <Users className="w-3.5 h-3.5 text-fuchsia-400" />
-                      Tugas Terbantu
-                    </span>
-                  </SpotlightCard>
-                </motion.div>
-
-                {/* Stats 4 */}
-                <motion.div variants={cardVariants}>
-                  <SpotlightCard className="p-5 flex flex-col justify-between h-28">
-                    <div className="text-3xl font-extrabold font-display text-white tracking-tight flex items-baseline">
-                      <Counter end={100} suffix="++" />
-                    </div>
-                    <span className="text-[10px] font-mono tracking-wider uppercase text-neutral-400 flex items-center gap-1.5 mt-2">
-                      <Share2 className="w-3.5 h-3.5 text-purple-400" />
-                      Desain Grafis
-                    </span>
-                  </SpotlightCard>
-                </motion.div>
-
-                {/* Stats 5 - spanning 2 cols */}
-                <motion.div variants={cardVariants} className="col-span-2">
-                  <SpotlightCard className="p-5 flex flex-col justify-between h-28">
-                    <div className="text-3xl font-extrabold font-display text-white tracking-tight flex items-baseline">
-                      <Counter end={20} suffix="++" />
-                    </div>
-                    <span className="text-[10px] font-mono tracking-wider uppercase text-neutral-400 flex items-center gap-1.5 mt-2">
-                      <Laptop className="w-3.5 h-3.5 text-emerald-400" />
-                      Custom Web / Coding
-                    </span>
-                  </SpotlightCard>
-                </motion.div>
-
-              </div>
-            </motion.div>
-          </motion.div>
-
+                      <SpotlightCard className="p-5 border border-neutral-800/80 hover:border-violet-500/20 transition-all">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <div className="space-y-1">
+                            <h4 className="text-base font-bold text-white font-sans">{org.role}</h4>
+                            <p className="text-xs text-neutral-400 font-sans font-medium">{org.organization}</p>
+                          </div>
+                          <span className={`text-[9px] font-mono uppercase tracking-widest px-2 py-0.5 rounded border ${
+                            org.period === 'Aktif' 
+                              ? 'text-fuchsia-400 bg-fuchsia-950/20 border-fuchsia-800/20' 
+                              : 'text-neutral-500 bg-neutral-900 border-neutral-800'
+                          }`}>
+                            {org.period}
+                          </span>
+                        </div>
+                        <p className="text-xs text-neutral-500 mt-3 font-sans leading-relaxed">
+                          {org.desc}
+                        </p>
+                      </SpotlightCard>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>
