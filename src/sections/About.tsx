@@ -12,7 +12,47 @@ export const About: React.FC = () => {
 
   const handleDownloadCV = () => {
     // Generate simple text file as mock CV
-    const cvText = `CV - Malik Al Azis\n Business & Strategy & Designer Grafis\nLahir: 19 Februari 2006\nEmail: [EMAIL_ADDRESS]\nGithub: github.com/malik-dev`;
+    const cvText = `CV - Malik Al Azis
+Business & Strategy & Designer Grafis
+Lahir: 19 Februari 2006
+Email: ikariz.id@gmail.com
+Github: github.com/malik-dev
+
+Founder & CEO | Ikariz Group
+*Periode: 2024-sekarang
+Memimpin dan mengelola tiga lini bisnis utama di bawah bendera Ikariz Group dengan pencapaian sebagai berikut:
+
+Teman Tugas (ikariz.id) – Layanan Asistensi Akademik
+- Berhasil menyelesaikan 50+ submit jurnal terakreditasi SINTA 3 - 5.
+- Menuntaskan 7 proyek skripsi hingga selesai.
+- Menyelesaikan 200+ tugas akademik ringan dengan tingkat kepuasan tinggi.
+
+The Designer (Ikariz.id) – Layanan Desain Grafis & Branding
+- Memproduksi dan menyelesaikan 100+ aset desain kreatif untuk berbagai kebutuhan klien.
+
+likDeveloper (Ikariz.id) – Layanan Pengembangan IT & Web
+- Memimpin dan menyelesaikan 20+ proyek digital/software tepat waktu.
+
+PENGALAMAN KERJA
+MA & MTs Al Islam Bantur
+- Guru Desain Grafis (MA)
+  Menyusun kurikulum berbasis praktik dan mengajar siswa dalam penguasaan software desain dan komunikasi visual.
+- Guru Informatika (MA & MTs)
+  Mengajar fondasi teknologi informasi, pemrograman dasar, dan literasi digital kepada siswa.
+- Operator Data (MTs)
+  Bertanggung jawab atas validitas, input, dan pemeliharaan sistem data sekolah.
+
+Penyelenggara Pemilu (Ad-Hoc)
+- Divisi Data PPS – Masa Pilkada 2024 | Desa Wonokerto (2024)
+  Mengelola, memutakhirkan, dan memastikan validitas Daftar Pemilih Tetap (DPT) untuk wilayah Desa Wonokerto selama tahapan Pilkada 2024.
+
+PENGALAMAN ORGANISASI
+- Sekretaris Divisi 2 – HMP PAI UNIRA Malang (2025)
+- Anggota – HMP PAI UNIRA Malang (2024)
+- Ketua Divisi Jarkominfo – IPNU IPPNU PAC Bantur (2022)
+- Ketua OSIS – MA Al Islam Bantur (2022)
+- Anggota – LPMD (Lembaga Pemberdayaan Masyarakat Desa) (Aktif)
+- Anggota OSIS – MA Al Islam Bantur (2020)`;
     const blob = new Blob([cvText], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
