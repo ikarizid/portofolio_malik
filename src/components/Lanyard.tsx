@@ -87,7 +87,7 @@ export const Lanyard: React.FC = () => {
         <div className="w-28 h-28 rounded-xl overflow-hidden border-2 border-neutral-800/80 bg-neutral-950 relative mb-4">
           <img
             src="/profile.png"
-            alt="Malik Muhammad Al Azis"
+            alt="Malik Al Azis"
             className="w-full h-full object-cover grayscale contrast-125 brightness-95"
             draggable="false"
           />

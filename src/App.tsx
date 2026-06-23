@@ -79,7 +79,7 @@ function App() {
 
       {/* Footer */}
       <footer className="py-8 bg-[#07030f] border-t border-violet-900/20 text-center text-violet-900 text-xs font-mono select-none">
-        <p className="text-neutral-600">© {new Date().getFullYear()} MALIK MUHAMMAD AL AZIS. ALL RIGHTS RESERVED.</p>
+        <p className="text-neutral-600">© {new Date().getFullYear()} MALIK AL AZIS. ALL RIGHTS RESERVED.</p>
         <p className="mt-1.5 text-[10px] text-violet-800">DESIGNED &amp; CODED WITH PASSION ✦ POWERED BY VIOLET</p>
       </footer>
     </div>

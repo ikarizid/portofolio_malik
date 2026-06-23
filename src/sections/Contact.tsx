@@ -33,7 +33,7 @@ export const Contact: React.FC = () => {
   const [comments, setComments] = useState<CommentItem[]>([
     {
       id: 'pinned-1',
-      name: 'Malik Muhammad A.',
+      name: 'Malik Al Azis',
       text: 'Terima kasih sudah mampir di website portofolio saya! Silakan tinggalkan pesan atau komentar Anda di sini.',
       avatarUrl: '💻',
       likes: 12,

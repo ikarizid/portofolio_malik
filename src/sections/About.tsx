@@ -116,7 +116,7 @@ export const About: React.FC = () => {
                 <div className="w-full h-full rounded-full overflow-hidden bg-neutral-900 border-2 border-neutral-950">
                   <img
                     src="/profile.png"
-                    alt="Malik Muhammad Al Azis Profile"
+                    alt="Malik Al Azis Profile"
                     className="w-full h-full object-cover grayscale brightness-95 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500"
                   />
                 </div>

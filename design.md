@@ -49,7 +49,7 @@ Dokumen ini berisi arsitektur interaksi, aset visual, teks, dan spesifikasi komp
 
 ### 🛠️ Komponen & Perilaku Interaktif
 * **Heading Kiri:** `ABOUT ME` (Ukuran kecil, tipis).
-* **Nama Besar (Tengah):** **Malik Muhammad Al Azis** (Gunakan nama lengkapmu).
+* **Nama Besar (Tengah):** **Malik Al Azis** (Gunakan nama lengkapmu).
 * **Layout & Foto Bulat (Sisi Kanan):** Foto profil kasual berbentuk lingkaran sempurna yang dikelilingi garis border tipis yang bercahaya halus.
 * **Deskripsi Profil (Sisi Kiri):**
     > "Mahasiswa Pendidikan Agama Islam (PAI) Semester 6 yang mendedikasikan diri di dunia pendidikan dan aktif bergerak di industri IT/Kreatif. Lahir pada 19 Februari 2006, mahir mengombinasikan nilai edukasi dengan pemrograman, desain grafis, dan otomatisasi."
@@ -131,7 +131,7 @@ Dokumen ini berisi arsitektur interaksi, aset visual, teks, dan spesifikasi komp
 * Fitur interaktif tempat orang bisa meninggalkan komentar langsung di web.
 * Input Field: `Your Name`, `Your Comment`, dan tombol `[ 📎 Upload Image ]`.
 * Tombol Aksi: `[ Post Comment ]`
-* **List Komentar Terbawah:** Menampilkan daftar komentar penonton web yang sudah masuk secara real-time lengkap dengan avatar, nama, isi teks, ikon "Like (❤️)", dan badge `📌 PINNED` untuk komentarmu sendiri (Contoh teks: *"Terima kasih sudah mampir"* oleh Malik Muhammad A.).
+* **List Komentar Terbawah:** Menampilkan daftar komentar penonton web yang sudah masuk secara real-time lengkap dengan avatar, nama, isi teks, ikon "Like (❤️)", dan badge `📌 PINNED` untuk komentarmu sendiri (Contoh teks: *"Terima kasih sudah mampir"* oleh Malik Al Azis).
 
 ---
 
